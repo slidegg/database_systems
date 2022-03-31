@@ -54,7 +54,7 @@ CREATE TABLE airports (
 );
 
 CREATE TABLE flights (
-    Flight_code int PRIMARY KEY,
+    Flight_code VARCHAR(255) PRIMARY KEY,
     Model_Number int UNIQUE NOT NULL,
     Airline_ID int UNIQUE NOT NULL,
     Departure VARCHAR(255) UNIQUE NOT NULL,
@@ -89,7 +89,8 @@ CREATE TABLE ticket (
     Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     primary key (Seat, Flight_code),
-    FOREIGN KEY (Passport_Nr) REFERENCES passenger(Passport_Nr)
+    FOREIGN KEY (Passport_Nr) REFERENCES passenger(Passport_Nr),
+    FOREIGN KEY (Flight_Code) REFERENCES flights(Flight_Code)
 );
 
 CREATE TABLE timeslot (
@@ -113,7 +114,8 @@ CREATE TABLE flight_pilots (
     Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     primary key (PID, Flight_Code),
-    FOREIGN KEY (PID) REFERENCES pilots(PID)
+    FOREIGN KEY (PID) REFERENCES pilots(PID),
+    FOREIGN KEY (Flight_Code) REFERENCES flights(Flight_Code)
 );
 
 INSERT INTO
