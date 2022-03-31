@@ -57,7 +57,6 @@ CREATE TABLE flights (
     Flight_code int PRIMARY KEY,
     Model_Number int UNIQUE NOT NULL,
     Airline_ID int UNIQUE NOT NULL,
-    PID int UNIQUE NOT NULL,
     Departure VARCHAR(255) UNIQUE NOT NULL,
     Arrival VARCHAR(255) UNIQUE NOT NULL,
     Terminal_Number VARCHAR(50),
@@ -69,7 +68,6 @@ CREATE TABLE flights (
     Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (Model_Number) REFERENCES airplane(Model_Number),
     FOREIGN KEY (Airline_ID) REFERENCES airlines(Airline_ID),
-    FOREIGN KEY (PID) REFERENCES pilots(PID),
     FOREIGN KEY (Source_location) REFERENCES airports(AP_Name),
     FOREIGN KEY (Destination_location) REFERENCES airports(AP_Name)
 );
@@ -107,6 +105,15 @@ CREATE TABLE terminal (
     Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (AP_Name) REFERENCES airports(AP_Name)
+);
+
+CREATE TABLE flight_pilots (
+    PID int UNIQUE NOT NULL,
+    Flight_Code VARCHAR(255) UNIQUE NOT NULL,
+    Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    primary key (PID, Flight_Code),
+    FOREIGN KEY (PID) REFERENCES pilots(PID)
 );
 
 INSERT INTO
