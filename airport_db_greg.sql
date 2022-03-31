@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS airport_db;
 CREATE DATABASE airport_db;
 
 USE airport_db;
