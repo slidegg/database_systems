@@ -74,7 +74,7 @@ CREATE TABLE flights (
 );
 
 CREATE TABLE passenger (
-    Passport_Nr int PRIMARY KEY,
+    Passport_Nr VARCHAR(50) PRIMARY KEY,
     Age int UNIQUE NOT NULL,
     Sex VARCHAR(50) NOT NULL,
     Email VARCHAR(50) UNIQUE NOT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE ticket (
     Seat VARCHAR(50) NOT NULL UNIQUE,
     Flight_Code VARCHAR(255) NOT NULL,
     Price FLOAT(9, 2) NOT NULL,
-    Passport_Nr int NOT NULL,
+    Passport_Nr VARCHAR(50) NOT NULL,
     Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     primary key (Seat, Flight_code),
@@ -118,8 +118,3 @@ CREATE TABLE flight_pilots (
     FOREIGN KEY (PID) REFERENCES pilots(PID),
     FOREIGN KEY (Flight_Code) REFERENCES flights(Flight_Code)
 );
-
-INSERT INTO
-    timeslot(Time_ID, Time_Slot)
-VALUES
-    (1, '00:15');
