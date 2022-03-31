@@ -33,18 +33,18 @@ insert into terminal(Terminal_Number,AP_Name)
 Values (1, 'Ferenc Liszt'),
 	   (2, 'Ferenc Liszt'),
        (3, 'Ferenc Liszt'),
-       (4, 'Copenhagen airport'),
-       (5, 'Copenhagen airport'),
-       (6, 'Jorge Chavez international airport'),
-       (7, 'Jorge Chavez international airport'),
-       (8, 'Luxembourg Findel airport'),
-       (9, 'Luxembourg Findel airport'),
-       (10, 'Luxembourg Findel airport'),
-       (11, 'Oslo airport'),
-       (12, 'Hamad International airport'),
-       (13, 'Hamad International airport'),
-       (14, 'Haneda Airport'),
-       (15, 'Charles de gaulle airport');
+       (1, 'Copenhagen airport'),
+       (2, 'Copenhagen airport'),
+       (1, 'Jorge Chavez international airport'),
+       (2, 'Jorge Chavez international airport'),
+       (1, 'Luxembourg Findel airport'),
+       (2, 'Luxembourg Findel airport'),
+       (3, 'Luxembourg Findel airport'),
+       (1, 'Oslo airport'),
+       (1, 'Hamad International airport'),
+       (2, 'Hamad International airport'),
+       (1, 'Haneda Airport'),
+       (1, 'Charles de gaulle airport');
 
 
 DELETE FROM timeslot;
@@ -148,29 +148,17 @@ VALUES
     (95, '23:30'),
     (96, '23:45');
 
-		DELETE FROM passenger;
-		insert into passenger(Passport_Nr, Age, Sex, Email)
-		Values  ('GR23232311', '25','MALE','passenger_gr@dtu.com'),
-				('BU35265464', '26','MALE','passenger_bu@dtu.com'),
-		        ('DA54416575', '32','FEMALE','passenger_da@dtu.com'),
-		        ('DE54546422', '40','FEMALE','passenger_de@dtu.com'),
-		        ('US15444644', '50','FEMALE','passenger_us@dtu.com'),
-		        ('IT15413214', '18','MALE','passenger_it@dtu.com'),
-		        ('UK54613146', '21','FEMALE','passenger_uk@dtu.com'),
-		        ('FR54416198', '70','FEMALE','passenger_fr@dtu.com');
+DELETE FROM passenger;
+insert into passenger(Passport_Nr, Age, Sex, Email)
+Values  ('GR23232311', '25','MALE','passenger_gr@dtu.com'),
+		('BU35265464', '26','MALE','passenger_bu@dtu.com'),
+		('DA54416575', '32','FEMALE','passenger_da@dtu.com'),
+		('DE54546422', '40','FEMALE','passenger_de@dtu.com'),
+		('US15444644', '50','FEMALE','passenger_us@dtu.com'),
+		('IT15413214', '18','MALE','passenger_it@dtu.com'),
+		('UK54613146', '21','FEMALE','passenger_uk@dtu.com'),
+		('FR54416198', '70','FEMALE','passenger_fr@dtu.com');
 
-
-
-		DELETE FROM ticket;
-		insert into ticket(Seat, Flight_Code, Price, Passport_Nr)
-		Values ('1a', 'aa', 'GR23232311'),
-			   ('2c', 'aa', 'BU35265464'),
-		       ('10a', 'aa', 'DA54416575'),
-		      ('10b', 'a', 'DE54546422'),
-		       ('15c', 'a', 'US15444644'),
-		       ('15b', 'a', 'IT15413214'),
-		       ('20a', 'a', 'UK54613146'),
-		       ('20b', 'a', 'FR54416198');
                
 DELETE FROM airlines;
 INSERT INTO airlines(Airline_ID, Airline_Name, IATA_Code)  VALUES
@@ -195,8 +183,8 @@ INSERT INTO pilots(PID, Pilot_Name, Salary, Airline_ID) VALUES
     (10, "Sun Tzu",  39500, 4),
     (11, "Wi Tu Lo",  38000, 4);
     
-DELETE FROM airplanes;
-INSERT INTO airplanes(Model_Number, Model_Name, Airline_ID) VALUES
+DELETE FROM airplane;
+INSERT INTO airplane(Model_Number, Model_Name, Airline_ID) VALUES
 	(10120, "Sukhoi Superjet 100", 0),
     (10320, "Boeing 737-800", 1),
     (10121, "Sukhoi Superjet 100", 2),
@@ -204,3 +192,37 @@ INSERT INTO airplanes(Model_Number, Model_Name, Airline_ID) VALUES
     (11231, "Airbus A330-300", 3),
     (12310, "Embraer 170/175", 4),
     (12311, "Embraer 170/175 ", 4);
+
+DELETE FROM flights;
+INSERT INTO flights(Flight_Code, 
+					Model_Number, 
+					Airline_ID,
+                    Departure,
+                    Arrival,
+                    Terminal_Number,
+                    Date_of_departure,
+                    Has_Connection,
+                    Source_location,
+                    Destination_location) VALUES
+	(100, 10120, 0, 74, 78, 1, curdate(), 0, 'Copenhagen airport', 'Ferenc Liszt'),
+    (101, 10320, 1, 14, 22, 1, curdate(), 0, 'Ferenc Liszt', 'Oslo airport'), 
+    (102, 10121, 2, 12, 18, 2, curdate(), 0, 'Copenhagen airport', 'Jorge Chavez international airport'),
+    (103, 11230, 3, 31, 40, 1, curdate(), 1, 'Haneda Airport', 'Copenhagen airport'),
+    (104, 11231, 3, 31, 35, 2, curdate(), 0, 'Jorge Chavez international airport', 'Copenhagen airport'),
+    (105, 12310, 4, 12, 22, 3, curdate(), 1, 'Jorge Chavez international airport', 'Ferenc Liszt'),
+    (106, 10121, 2, 14, 24, 1, curdate(), 0, 'Oslo airport', 'Haneda Airport'),
+    (107, 12311, 4, 2, 22, 1, curdate(), 0, 'Charles de gaulle airport', 'Haneda Airport'),
+    (108, 12311, 4, 83, 90, 2, curdate(), 0, 'Ferenc Liszt', 'Oslo airport'),
+    (109, 10320, 1, 74, 84, 1, curdate(), 1, 'Charles de gaulle airport', 'Ferenc Liszt');
+
+DELETE FROM ticket;
+insert into ticket(Seat, Flight_Code, Price, Passport_Nr)
+Values ('1a', '100', 300, 'GR23232311'),
+	   ('2c', '101', 400, 'BU35265464'),
+	   ('10a', '102', 350, 'DA54416575'),
+	  ('10b', '103', 120, 'DE54546422'),
+	   ('15c', '104', 750, 'US15444644'),
+	   ('15b', '105', 1250, 'IT15413214'),
+	   ('20a', '106', 900, 'UK54613146'),
+	   ('20b', '108', 850, 'FR54416198');
+	
