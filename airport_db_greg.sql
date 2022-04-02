@@ -112,11 +112,21 @@ CREATE TABLE timeslot (
 );
 
 CREATE TABLE flight_pilots (
-    PID int UNIQUE NOT NULL,
-    Flight_Code VARCHAR(255) UNIQUE NOT NULL,
+    PID int NOT NULL,
+    Flight_Code VARCHAR(255) NOT NULL,
     Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     primary key (PID, Flight_Code),
     FOREIGN KEY (PID) REFERENCES pilots(PID),
     FOREIGN KEY (Flight_Code) REFERENCES flights(Flight_Code)
+);
+
+CREATE TABLE airport_stores (
+	Store_ID int NOT NULL,
+    AP_Name VARCHAR(255) NOT NULL,
+    Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    primary key (Store_ID, AP_Name),
+    FOREIGN KEY (Store_ID) REFERENCES stores(Store_ID),
+    FOREIGN KEY (AP_Name) REFERENCES airports(AP_Name)
 );

@@ -18,8 +18,7 @@ insert into airports(AP_Name, City_Name,Capacity)
 Values ('Ferenc Liszt', 'Budapest', 500000),
 	   ('Copenhagen airport', 'Copenhagen', 50000),
        ('Jorge Chavez international airport', 'Lima', 10000),
-
-      ('Luxembourg Findel airport', 'Luxembourg', 10000),
+       ('Luxembourg Findel airport', 'Luxembourg', 10000),
        ('Oslo airport', 'Oslo', 10000),
        ('Hamad International airport', 'Doha', 12500),
        ('Haneda Airport', 'Tokyo', 30000),
@@ -225,4 +224,73 @@ Values ('1a', '100', 300, 'GR23232311'),
 	   ('15b', '105', 1250, 'IT15413214'),
 	   ('20a', '106', 900, 'UK54613146'),
 	   ('20b', '108', 850, 'FR54416198');
+       
+DELETE FROM flight_pilots;
+INSERT INTO flight_pilots(PID, Flight_Code) VALUES
+	(0, 100),
+    (1, 100),
+    (2, 101),
+    (3, 101),
+    (4, 101),
+    (3, 102),
+    (5, 103),
+    (6, 103),
+    (5, 104),
+    (7, 104),
+    (8, 105),
+    (9, 105),
+    (1, 106),
+    (2, 106),
+	(5, 107),
+    (10, 108),
+    (11,109);
 	
+DELETE FROM stores;
+INSERT INTO stores(Store_ID, Store_Name, Store_Type) VALUES 
+	(0, "StarBucks", "Food & Drinks"),
+    (1, "WHSmith", "Books & Magazines"),
+    (2, "Airport Pharmacy", "Medicine"),
+    (3, "ECCO", "Fashion"),
+    (4, "Global Exchange", "Currency"),
+    (5, "LEGO", "Toys"),
+    (6, "Gorm's", "Food & Drinks");
+
+Values ('Ferenc Liszt', 'Budapest', 500000),
+	   ('Copenhagen airport', 'Copenhagen', 50000),
+       ('Jorge Chavez international airport', 'Lima', 10000),
+       ('Luxembourg Findel airport', 'Luxembourg', 10000),
+       ('Oslo airport', 'Oslo', 10000),
+       ('Hamad International airport', 'Doha', 12500),
+       ('Haneda Airport', 'Tokyo', 30000),
+       ('Charles de gaulle airport', 'Paris', 9000);
+
+DELETE FROM airport_stores;
+INSERT INTO airport_stores(Store_ID, AP_Name) VALUES
+	(0, "Ferenc Liszt"),
+    (0, "Jorge Chavez international airport"),
+    (0, "Oslo airport"),
+    (1, "Ferenc Liszt"),
+    (1, "Copenhagen airport"),
+    (1, "Hamad International airport"),
+    (2, "Copenhagen airport"),
+    (2, "Jorge Chavez international airport"),
+    (2, "Haneda Airport"),
+    (3, "Copenhagen airport"),
+    (3, "Oslo airport"),
+    (3, "Charles de gaulle airport"),
+    (4, "Ferenc Liszt"),
+    (4, "Haneda Airport"),
+    (4, "Charles de gaulle airport"),
+    (5, "Jorge Chavez international airport"),
+    (5, "Haneda Airport"),
+    (5, "Charles de gaulle airport"),
+    (6, "Ferenc Liszt"),
+    (6, "Luxembourg Findel airport"),
+    (6, "Hamad International airport"),
+    (0, "Luxembourg Findel airport"),
+    (1, "Oslo airport"),
+    (2, "Hamad International airport"),
+    (3, "Hamad International airport"),
+    (4, "Hamad International airport"),
+    (6, "Haneda Airport"),
+    (5, "Copenhagen airport");
