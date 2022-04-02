@@ -1,6 +1,8 @@
 #Population for airports and cities and terminals
 USE airport_db;
 
+SET SQL_SAFE_UPDATES = 0;
+
 DELETE FROM
     city;
 
