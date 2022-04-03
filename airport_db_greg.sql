@@ -29,20 +29,20 @@ CREATE TABLE city (
 CREATE TABLE airplane (
     Model_number int PRIMARY KEY,
     Model_Name VARCHAR(50) NOT NULL,
-    Airline_ID int NOT NULL,
+    Airline_ID int,
     Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (Airline_ID) REFERENCES airlines(Airline_ID)
+    FOREIGN KEY (Airline_ID) REFERENCES airlines(Airline_ID) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE pilots (
     PID int PRIMARY KEY,
     Pilot_Name VARCHAR(50) UNIQUE NOT NULL,
     Salary FLOAT(9, 2) NOT NULL,
-    Airline_ID int NOT NULL,
+    Airline_ID int,
     Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (Airline_ID) REFERENCES airlines(Airline_ID)
+    FOREIGN KEY (Airline_ID) REFERENCES airlines(Airline_ID) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE airports (
@@ -51,7 +51,7 @@ CREATE TABLE airports (
     Capacity VARCHAR(250) NOT NULL,
     Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (City_Name) REFERENCES city(City_Name)
+    FOREIGN KEY (City_Name) REFERENCES city(City_Name) ON UPDATE CASCADE
 );
 
 CREATE TABLE terminal (
@@ -83,9 +83,9 @@ CREATE TABLE flights (
     Destination_location VARCHAR(255) NOT NULL,
     Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (Model_Number) REFERENCES airplane(Model_Number),
-    FOREIGN KEY (Terminal_Number) REFERENCES terminal(Terminal_Number),
-    FOREIGN KEY (Airline_ID) REFERENCES airlines(Airline_ID),
+    FOREIGN KEY (Model_Number) REFERENCES airplane(Model_Number) ON UPDATE CASCADE,
+    FOREIGN KEY (Terminal_Number) REFERENCES terminal(Terminal_Number) ON UPDATE CASCADE,
+    FOREIGN KEY (Airline_ID) REFERENCES airlines(Airline_ID) ON UPDATE CASCADE,
     FOREIGN KEY (Source_location) REFERENCES airports(AP_Name) ON UPDATE CASCADE,
     FOREIGN KEY (Destination_location) REFERENCES airports(AP_Name) ON UPDATE CASCADE,
     FOREIGN KEY (Departure) REFERENCES timeslot(Time_ID),
@@ -109,8 +109,8 @@ CREATE TABLE ticket (
     Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     primary key (Seat, Flight_code),
-    FOREIGN KEY (Passport_Nr) REFERENCES passenger(Passport_Nr),
-    FOREIGN KEY (Flight_Code) REFERENCES flights(Flight_Code)
+    FOREIGN KEY (Passport_Nr) REFERENCES passenger(Passport_Nr) ON UPDATE CASCADE,
+    FOREIGN KEY (Flight_Code) REFERENCES flights(Flight_Code) ON DELETE CASCADE
 );
 
 CREATE TABLE flight_pilots (
@@ -120,7 +120,7 @@ CREATE TABLE flight_pilots (
     Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     primary key (PID, Flight_Code),
     FOREIGN KEY (PID) REFERENCES pilots(PID),
-    FOREIGN KEY (Flight_Code) REFERENCES flights(Flight_Code)
+    FOREIGN KEY (Flight_Code) REFERENCES flights(Flight_Code) ON DELETE CASCADE
 );
 
 CREATE TABLE airport_stores (
@@ -129,6 +129,6 @@ CREATE TABLE airport_stores (
     Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     primary key (Store_ID, AP_Name),
-    FOREIGN KEY (Store_ID) REFERENCES stores(Store_ID),
-    FOREIGN KEY (AP_Name) REFERENCES airports(AP_Name) ON UPDATE CASCADE
+    FOREIGN KEY (Store_ID) REFERENCES stores(Store_ID) ON DELETE CASCADE,
+    FOREIGN KEY (AP_Name) REFERENCES airports(AP_Name) ON UPDATE CASCADE ON DELETE CASCADE
 );

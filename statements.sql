@@ -14,6 +14,9 @@ HAVING
             pilots
     );
     
+# Sabina Select & Update
+SELECT Passport_Nr, Email, Flight_Code, Seat FROM passenger JOIN ticket USING (Passport_Nr) ORDER BY Passport_Nr ASC;
+UPDATE pilots SET Salary = Salary * 1.10 WHERE Airline_ID = 3;
 
 # Get sum of flights for all passengers, grouped by passport_nr - Oliver
 SELECT T.Passport_Nr, count(F.Flight_Code) as NumFlights, P.Email FROM ticket T JOIN flights F JOIN (
@@ -67,12 +70,11 @@ left join airplane planes
 #Daniel - A store has had a namechange, and it must be reflected in the database.
 UPDATE airports set AP_Name =' Danish international airport' where city_Name = 'Copenhagen';
 
-select * from airports
+select * from airports;
 
 
 
 # Greg - A trigger for checking salary before inserting to table of pilots
-USE airport_db;
 DROP TRIGGER IF EXISTS upd_salary_check;
 
 delimiter //
@@ -85,4 +87,6 @@ END IF; //
 INSERT INTO
     pilots(PID, Pilot_Name, Salary, Airline_ID)
 VALUES
-    (7000, "Test Trigger", -45000, 40);
+    (7000, "Test Trigger", -45000, 4);
+    
+SELECT Salary FROM pilots WHERE PID = 7000;
