@@ -63,12 +63,19 @@ CREATE TABLE terminal (
     FOREIGN KEY (AP_Name) REFERENCES airports(AP_Name) ON UPDATE CASCADE
 );
 
+CREATE TABLE timeslot (
+    Time_ID int PRIMARY KEY,
+    Time_Slot time(0) UNIQUE NOT NULL,
+    Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 CREATE TABLE flights (
     Flight_code VARCHAR(255) PRIMARY KEY,
     Model_Number int NOT NULL,
     Airline_ID int NOT NULL,
-    Departure VARCHAR(255) NOT NULL,
-    Arrival VARCHAR(255) NOT NULL,
+    Departure INT NOT NULL,
+    Arrival INT NOT NULL,
     Terminal_Number VARCHAR(50),
     Date_of_departure DATE NOT NULL,
     Has_Connection BIT(1),
@@ -80,7 +87,9 @@ CREATE TABLE flights (
     FOREIGN KEY (Terminal_Number) REFERENCES terminal(Terminal_Number),
     FOREIGN KEY (Airline_ID) REFERENCES airlines(Airline_ID),
     FOREIGN KEY (Source_location) REFERENCES airports(AP_Name) ON UPDATE CASCADE,
-    FOREIGN KEY (Destination_location) REFERENCES airports(AP_Name) ON UPDATE CASCADE
+    FOREIGN KEY (Destination_location) REFERENCES airports(AP_Name) ON UPDATE CASCADE,
+    FOREIGN KEY (Departure) REFERENCES timeslot(Time_ID),
+    FOREIGN KEY (Arrival) REFERENCES timeslot(Time_ID)
 );
 
 CREATE TABLE passenger (
@@ -102,13 +111,6 @@ CREATE TABLE ticket (
     primary key (Seat, Flight_code),
     FOREIGN KEY (Passport_Nr) REFERENCES passenger(Passport_Nr),
     FOREIGN KEY (Flight_Code) REFERENCES flights(Flight_Code)
-);
-
-CREATE TABLE timeslot (
-    Time_ID int PRIMARY KEY,
-    Time_Slot time(0) UNIQUE NOT NULL,
-    Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE flight_pilots (
