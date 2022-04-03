@@ -71,3 +71,18 @@ select * from airports
 
 
 
+-- Greg - A trigger for checking salary before inserting to table of pilots
+USE airport_db;
+DROP TRIGGER IF EXISTS upd_salary_check;
+
+delimiter //
+
+CREATE TRIGGER upd_salary_check BEFORE INSERT ON pilots FOR EACH ROW IF NEW.Salary < 0 
+THEN SET NEW.Salary = 0; 
+END IF; //  
+
+-- Test
+INSERT INTO
+    pilots(PID, Pilot_Name, Salary, Airline_ID)
+VALUES
+    (7000, "Test Trigger", -45000, 40);
