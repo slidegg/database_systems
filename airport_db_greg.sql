@@ -60,7 +60,7 @@ CREATE TABLE terminal (
     Created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (Terminal_Number, AP_Name),
-    FOREIGN KEY (AP_Name) REFERENCES airports(AP_Name)
+    FOREIGN KEY (AP_Name) REFERENCES airports(AP_Name) ON UPDATE CASCADE
 );
 
 CREATE TABLE flights (
@@ -79,8 +79,8 @@ CREATE TABLE flights (
     FOREIGN KEY (Model_Number) REFERENCES airplane(Model_Number),
     FOREIGN KEY (Terminal_Number) REFERENCES terminal(Terminal_Number),
     FOREIGN KEY (Airline_ID) REFERENCES airlines(Airline_ID),
-    FOREIGN KEY (Source_location) REFERENCES airports(AP_Name),
-    FOREIGN KEY (Destination_location) REFERENCES airports(AP_Name)
+    FOREIGN KEY (Source_location) REFERENCES airports(AP_Name) ON UPDATE CASCADE,
+    FOREIGN KEY (Destination_location) REFERENCES airports(AP_Name) ON UPDATE CASCADE
 );
 
 CREATE TABLE passenger (
@@ -128,5 +128,5 @@ CREATE TABLE airport_stores (
     Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     primary key (Store_ID, AP_Name),
     FOREIGN KEY (Store_ID) REFERENCES stores(Store_ID),
-    FOREIGN KEY (AP_Name) REFERENCES airports(AP_Name)
+    FOREIGN KEY (AP_Name) REFERENCES airports(AP_Name) ON UPDATE CASCADE
 );
